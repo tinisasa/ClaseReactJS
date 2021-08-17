@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import ItemCount from './ItemCount';
 
-const Item = ({ item }) => {
+const ItemDetail = ({ item }) => {
     const [stock, setStock] = useState(item.stock);
 
     const addItem = (quantity) => {
@@ -24,4 +24,4 @@ const Item = ({ item }) => {
         </div>)
 }
 
-export default Item;
+export default ItemDetail;

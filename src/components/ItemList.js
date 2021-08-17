@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Item from './Item';
+import ItemDetail from './ItemDetail';
 
 const products = [
     {
@@ -21,13 +21,6 @@ const products = [
         stock: 10
     }]
 
-const task = () =>
-    new Promise((resolve, reject) => {
-        setTimeout(() => {
-            resolve(products);
-        }, 2000);
-    });
-
 const ItemList = () => {
     const [items, setItems] = useState([]);
     useEffect(() => {
@@ -43,13 +36,21 @@ const ItemList = () => {
         }
         getItems();
     }, []);
+
+    const task = () =>
+        new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve(products);
+            }, 2000);
+        });
+
     return (
         <div className="d-flex">
             {
                 items.length === 0 &&
                 <p>Cargando...</p>
             }
-            {items.map((item) => <Item key={item.id} item={item} />)}
+            {items.map((item) => <ItemDetail key={item.id} item={item} />)}
         </div>)
 }
 
