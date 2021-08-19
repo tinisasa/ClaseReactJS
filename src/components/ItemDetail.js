@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import ItemCount from './ItemCount';
 
-const ItemDetail = ({ item }) => {
+const ItemDetail = ({ item, itemDoesntExists }) => {
     const [stock, setStock] = useState(item.stock);
 
     const addItem = (quantity) => {
@@ -10,17 +10,26 @@ const ItemDetail = ({ item }) => {
     }
 
     return (
-        <div className="col-4 ml-1 mr-1" >
-            <div className="card">
-                <img src={item.pictureUrl} className="card-img-top img-fluid" alt="..."></img>
-                <div className="card-body">
-                    <h5 className="card-title">{item.title}</h5>
-                    <p className="card-text">{item.description}</p>
-                    <p className="card-text">$ {item.price}</p>
-                    <p className="card-text">Stock disponible: {stock}</p>
-                    <ItemCount initial={item.initial} stock={stock} onAdd={addItem} />
-                </div>
-            </div>
+        <div className="row">
+            {
+                itemDoesntExists &&
+                <p>Producto no encontrado</p>
+            }
+            {
+                !itemDoesntExists &&
+                <>
+                    <div className="col-4" >
+                        <img src={item.pictureUrl} className="img-fluid" alt="..."></img>
+                    </div>
+                    <div className="col-8">
+                        <h2 className="card-title">{item.title}</h2>
+                        <p className="card-text">{item.description}</p>
+                        <p className="lead">$ {item.price}</p>
+                        <p className="card-text">Stock disponible: {stock}</p>
+                        <ItemCount initial={item.initial} stock={stock} onAdd={addItem} />
+                    </div>
+                </>
+            }
         </div>)
 }
 
