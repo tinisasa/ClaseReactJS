@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const ItemCount = ({ stock, initial, onAdd }) => {
 
@@ -18,14 +18,14 @@ const ItemCount = ({ stock, initial, onAdd }) => {
     }
 
     return (
-        <div>
+        <>
             <div className="btn-group btn-block mb-2" role="group" aria-label="Selector de unidades">
                 <button type="button" className="btn btn-light" onClick={onDecrease} disabled={count === 1}><i className="ri-subtract-line"></i></button>
                 <button type="button" className="btn btn-light" disabled><span className="text-body">{count}</span></button>
                 <button type="button" className="btn btn-light" onClick={onIncrease} disabled={count >= stock}><i className="ri-add-line"></i></button>
             </div>
-            <button type="button" className="btn btn-block btn-primary" disabled={stock === 0} onClick={addProduct}>Agregar al carrito</button>
-        </div>)
+            <button type="button" className="btn btn-block btn-info" disabled={stock === 0} onClick={addProduct}>Agregar al carrito</button>
+        </>)
 }
 
 export default ItemCount;
