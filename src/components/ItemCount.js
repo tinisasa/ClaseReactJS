@@ -1,17 +1,25 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import { useRouteMatch } from 'react-router-dom';
 
-const ItemCount = ({ stock, initial, onAdd }) => {
-
+const ItemCount = ({ item, initial, onAdd, onDelete, onEdit }) => {
+    // TODO: REFACTOR
     const [count, setCount] = useState(initial);
+    let match = useRouteMatch("/cart");
 
     function onDecrease() {
-        if (count > 1) return setCount(count - 1);
+        if (count > 1) {
+            if (match) onEdit(count);
+            return setCount(count - 1);
+        }
     }
     function onIncrease() {
-        if (count < stock) return setCount(count + 1);
+        if (count < item.stock) {
+            if (match) onEdit(count);
+            return setCount(count + 1);
+        }
     }
     function addProduct() {
-        if (stock > 0) {
+        if (item.stock > 0) {
             onAdd(count);
             setCount(1);
         }
@@ -20,11 +28,14 @@ const ItemCount = ({ stock, initial, onAdd }) => {
     return (
         <>
             <div className="btn-group btn-block mb-2" role="group" aria-label="Selector de unidades">
-                <button type="button" className="btn btn-light" onClick={onDecrease} disabled={count === 1}><i className="ri-subtract-line"></i></button>
+                {/* TODO: Optimize conditional rendering */}
+                {match && count === 1 && <button type="button" className="btn btn-light" onClick={onDelete}><i className="ri-delete-bin-line"></i></button>}
+                {match && count > 1 && <button type="button" className="btn btn-light" onClick={onDecrease} disabled={count === 1}><i className="ri-subtract-line"></i></button>}
+                {!match && <button type="button" className="btn btn-light" onClick={onDecrease} disabled={count === 1}><i className="ri-subtract-line"></i></button>}
                 <button type="button" className="btn btn-light" disabled><span className="text-body">{count}</span></button>
-                <button type="button" className="btn btn-light" onClick={onIncrease} disabled={count >= stock}><i className="ri-add-line"></i></button>
+                <button type="button" className="btn btn-light" onClick={onIncrease} disabled={count >= item.stock}><i className="ri-add-line"></i></button>
             </div>
-            <button type="button" className="btn btn-block btn-info" disabled={stock === 0} onClick={addProduct}>Agregar al carrito</button>
+            {!match && <button type="button" className="btn btn-block btn-info" disabled={item.stock === 0} onClick={addProduct}>Agregar al carrito</button>}
         </>)
 }
 

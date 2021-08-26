@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import ItemCount from './ItemCount';
+// import ItemCount from './ItemCount';
 
 const Item = ({ item }) => {
     const [stock, setStock] = useState(item.stock);
 
-    const addItem = (quantity) => {
-        if (quantity <= stock)
-            setStock(stock - quantity);
-    }
+    // TODO: Para verdadero control de stock, descomentar luego de implementación de Firebase
+    // const addItem = (quantity) => {
+    //     if (quantity <= stock)
+    //         setStock(stock - quantity);
+    // }
 
     return (
         <div className="col-4" >
@@ -21,7 +22,8 @@ const Item = ({ item }) => {
                     <p className="card-text">{item.description}</p>
                     <p className="card-text">$ {item.price}</p>
                     <p className="card-text">Stock disponible: {stock}</p>
-                    <ItemCount initial={item.initial} stock={stock} onAdd={addItem} />
+                    {/* TODO: Para verdadero control de stock, descomentar luego de implementación de Firebase */}
+                    {/* <ItemCount initial={item.initial} item={item} onAdd={addItem} /> */}
                 </div>
             </div>
         </div>)

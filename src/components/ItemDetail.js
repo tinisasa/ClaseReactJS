@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import CartContext from '../context/CartContext';
 import ConfirmPurchase from './ConfirmPurchase';
 import ItemCount from './ItemCount';
 
@@ -6,6 +7,7 @@ const ItemDetail = ({ item, itemDoesntExists }) => {
     const [stock, setStock] = useState(1);
     const [initial, setInitial] = useState(1);
     const [added, setAdded] = useState(false);
+    const { addItem } = useContext(CartContext);
     const Cta = added ? ConfirmPurchase : ItemCount;
 
     useEffect(() => {
@@ -13,14 +15,15 @@ const ItemDetail = ({ item, itemDoesntExists }) => {
         setInitial(item.initial);
     }, [item]);
 
-    const addItem = (quantity) => {
-        if (quantity <= stock)
-            console.log(quantity);
-        setStock(stock - quantity);
+    const addItemToCart = (quantity) => {
+        if (quantity <= stock) {
+            setStock(stock - quantity);
+            addItem(item, quantity);
+        }
     }
 
     const onAdd = (quantity) => {
-        addItem(quantity);
+        addItemToCart(quantity);
         setAdded(true);
     }
 
@@ -41,7 +44,7 @@ const ItemDetail = ({ item, itemDoesntExists }) => {
                         <p className="card-text">{item.description}</p>
                         <p className="lead">$ {item.price}</p>
                         <p className="card-text">Stock disponible: {stock}</p>
-                        <Cta initial={initial} stock={stock} onAdd={onAdd} />
+                        <Cta initial={initial} item={item} onAdd={onAdd} />
                     </div>
                 </>
             }
