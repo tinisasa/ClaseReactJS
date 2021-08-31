@@ -3,7 +3,18 @@ import CartContext from './CartContext';
 
 function CartProvider({ defaultValue = [], children }) {
     const [items, setItems] = useState(defaultValue);
+    const [totalItems, setTotalItems] = useState(0);
     useEffect(() => {
+        let totalOfItems = 0;
+        if (items.length > 0) {
+            items.map(obj => {
+                console.log(obj.quantity);
+                setTotalItems(totalOfItems + obj.quantity);
+            })
+        }
+        else {
+            setTotalItems(0);
+        }
     }, [items])
 
     const getItemById = (id) => {
@@ -42,7 +53,7 @@ function CartProvider({ defaultValue = [], children }) {
     const clearItems = () => setItems([]);
 
     return (
-        <CartContext.Provider value={{ items, addItem, removeItem, editItem, isInCart, clearItems, cartSize: items.length }}>
+        <CartContext.Provider value={{ items, addItem, removeItem, editItem, isInCart, clearItems, cartSize: items.length, totalItems: totalItems }}>
             {children}
         </CartContext.Provider>
     )

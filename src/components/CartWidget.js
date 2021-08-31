@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom';
 import CartContext from '../context/CartContext';
 
 const CartWidget = () => {
-    const { cartSize } = useContext(CartContext);
+    const { totalItems } = useContext(CartContext);
     return (<Link to="/cart">
         <span><i className="ri-shopping-cart-line"></i></span>
-        <span className="badge badge-pill badge-light">{cartSize}</span>
+        {totalItems > 0 ? <span className="badge badge-pill badge-light">{totalItems}</span> : ''}
     </Link>
     );
 }
