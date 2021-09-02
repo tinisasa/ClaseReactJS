@@ -8,8 +8,7 @@ function CartProvider({ defaultValue = [], children }) {
         let totalOfItems = 0;
         if (items.length > 0) {
             items.map(obj => {
-                console.log(obj.quantity);
-                setTotalItems(totalOfItems + obj.quantity);
+                return setTotalItems(totalOfItems + obj.quantity);
             })
         }
         else {

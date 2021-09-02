@@ -1,45 +1,30 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import { getFirestore } from '../firebase/clientFactory';
 import CartWidget from './CartWidget';
-
-const mockCategories = [
-    {
-        categoryId: 1,
-        categoryName: 'Geodas',
-    },
-    {
-        categoryId: 2,
-        categoryName: 'Estalactitas',
-    },
-    {
-        categoryId: 3,
-        categoryName: 'Amatistas',
-    }
-]
 
 const NavBar = ({ appName }) => {
     const [categories, setCategories] = useState([]);
     useEffect(() => {
         async function getCategories() {
-            await task()
-                .then(
-                    (result) => {
-                        setCategories(result);
-                    },
-                    (err) => console.log(err)
-                )
-                .finally(() => console.log("Proceso finalizado correctamente"));
+            const db = getFirestore();
+            const itemCollection = db.collection("categories").orderBy("name", "asc");
+            await itemCollection.get().then((querySnapshot) => {
+                if (querySnapshot.size === 0) {
+                    console.log('No results!');
+                }
+                setCategories(querySnapshot.docs.map(doc => {
+                    const obj = { id: doc.id, ...doc.data() }
+                    return obj;
+                }))
+            }).catch((error) => {
+                console.log('error searching items', error);
+            }).finally(() => {
+                console.log('finalizado correctamente');
+            })
         }
         getCategories();
     }, []);
-
-    const task = () =>
-        new Promise((resolve, reject) => {
-            setTimeout(() => {
-                resolve(mockCategories);
-            }, 200);
-        });
-
     return (
         <nav className="navbar navbar-expand navbar-light bg-light">
             <NavLink exact to="/">
@@ -51,10 +36,10 @@ const NavBar = ({ appName }) => {
                         Home
                     </NavLink>
                 </li>
-                {categories.map(({ categoryName, categoryId }) =>
-                    <li key={categoryId} className="nav-item">
-                        <NavLink exact activeClassName="active" className="nav-link" to={`/categories/${categoryId}`}>
-                            {categoryName}
+                {categories.map(({ name, id }) =>
+                    <li key={id} className="nav-item">
+                        <NavLink exact activeClassName="active" className="nav-link" to={`/categories/${id}`}>
+                            {name}
                         </NavLink>
                     </li>
                 )}
