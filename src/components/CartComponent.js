@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 import CartContext from '../context/CartContext';
-import { getFirestore } from '../firebase/clientFactory';
+import { addOrder } from '../firebase/clientFactory';
 import ItemCount from './ItemCount';
 
 const CartComponent = () => {
@@ -29,7 +29,7 @@ const CartComponent = () => {
                 title: item.title,
                 price: item.price,
             },
-            quantity,
+            quantity
         }));
         console.log("newItems", newItems);
         const newOrder = {
@@ -41,21 +41,12 @@ const CartComponent = () => {
             items: newItems,
             total: totalAmount
         };
-        const db = getFirestore();
-        const orders = db.collection("orders");
 
-        const batch = db.batch();
-
-        orders.add(newOrder)
+        addOrder(newOrder, items)
             .then((response) => {
                 console.log("response:", response);
-                items.forEach(({ item, quantity }) => {
-                    const docRef = db.collection("items").doc(item.id);
-                    batch.update(docRef, { stock: item.stock - quantity });
-                });
-                batch.commit();
                 clearItems();
-                setCreatedOrderId(response.id);
+                setCreatedOrderId(response);
             })
             .catch((error) => console.log(error));
 

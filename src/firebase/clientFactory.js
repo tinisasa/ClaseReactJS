@@ -14,7 +14,7 @@ export function getFirestore() {
 }
 
 export function getList(collection, id) {
-    let query = getFirestore().collection(collection)
+    let query = getFirestore().collection(collection);
     switch (collection) {
         case "categories":
             query = query.orderBy("name", "asc");
@@ -48,7 +48,7 @@ export function getList(collection, id) {
 }
 
 export function getById(collection, id) {
-    let query = getFirestore().collection(collection).doc(id);
+    const query = getFirestore().collection(collection).doc(id);
     return new Promise((resolve, reject) => {
         query.get().then((doc) => {
             if (!doc.exists) {
@@ -63,4 +63,22 @@ export function getById(collection, id) {
         })
 
     })
+}
+
+export function addOrder(object, currentItems) {
+    const query = getFirestore().collection("orders");
+    const batch = getFirestore().batch();
+    return new Promise((resolve, reject) => {
+
+        query.add(object).then((response) => {
+            currentItems.forEach(({ item, quantity }) => {
+                const docRef = getFirestore().collection("items").doc(item.id);
+                batch.update(docRef, { stock: item.stock - quantity });
+            });
+            batch.commit();
+            return resolve(response.id);
+        }).catch((error) => reject(error));
+    });
+
+
 }
