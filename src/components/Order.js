@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router';
-import { getFirestore } from '../firebase/clientFactory';
+import { getById } from '../firebase/clientFactory';
 import OrderDetail from './OrderDetail';
 
 const Order = () => {
@@ -11,21 +11,12 @@ const Order = () => {
     useEffect(() => {
         async function getOrderById() {
             setisLoading(true);
-            const db = getFirestore();
-            const orderQuery = db.collection("orders").doc(id);
-            await orderQuery.get().then((doc) => {
+            await getById('items', id).then((response) => {
                 setisLoading(false);
-                if (!doc.exists) {
-                    console.log('No result!');
-                    setOrderDoesntExists(true);
-                    return;
-                }
                 setOrderDoesntExists(false);
-                setOrder({ id: doc.id, ...doc.data() })
-                console.log(order);
+                setOrder(response);
             }).catch((error) => {
-                console.log('error searching orders', error);
-                console.log(id);
+                error === 'notFound' ? setOrderDoesntExists(true) : console.log('error searching orders', error);
             }).finally(() => {
                 setisLoading(false)
             })

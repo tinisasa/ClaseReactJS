@@ -22,6 +22,8 @@ export function getList(collection, id) {
         case "items":
             query = id ? query.where('categoryId', '==', id) : query;
             break;
+        default:
+            return null;
     }
 
     return new Promise((resolve, reject) => {
