@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getFirestore } from '../firebase/clientFactory';
+import { getById } from '../firebase/clientFactory';
 import ItemDetail from './ItemDetail';
 
 const ItemDetailContainer = ({ greeting }) => {
@@ -11,19 +11,12 @@ const ItemDetailContainer = ({ greeting }) => {
     useEffect(() => {
         async function getItemById() {
             setisLoading(true);
-            const db = getFirestore();
-            const itemQuery = db.collection("items").doc(id);
-            await itemQuery.get().then((doc) => {
+            await getById('items', id).then((response) => {
                 setisLoading(false);
-                if (!doc.exists) {
-                    console.log('No result!');
-                    setItemDoesntExists(true);
-                    return;
-                }
                 setItemDoesntExists(false);
-                setItem({ id: doc.id, ...doc.data() })
+                setItem(response);
             }).catch((error) => {
-                console.log('error searching items', error);
+                error === 'notFound' ? setItemDoesntExists(true) : console.log('error searching items', error);
             }).finally(() => {
                 setisLoading(false)
             })

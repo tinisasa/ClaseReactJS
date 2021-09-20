@@ -28,10 +28,10 @@ export function getList(collection, id) {
         query.limit(20).get().then((querySnapshot) => {
             if (querySnapshot.size === 0) {
                 console.log('No results!');
-                resolve([]);
+                return resolve([]);
             }
             else {
-                resolve(querySnapshot.docs.map(doc => {
+                return resolve(querySnapshot.docs.map(doc => {
                     const obj = { id: doc.id, ...doc.data() }
                     return obj;
                 }))
@@ -45,6 +45,20 @@ export function getList(collection, id) {
 
 }
 
-export function getById() {
+export function getById(collection, id) {
+    let query = getFirestore().collection(collection).doc(id);
+    return new Promise((resolve, reject) => {
+        query.get().then((doc) => {
+            if (!doc.exists) {
+                return reject('notFound');
+            }
+            else {
+                return resolve({ id: doc.id, ...doc.data() })
+            }
+        }).catch((error) => {
+            reject(error)
+            console.log('error getting item', error);
+        })
 
+    })
 }
