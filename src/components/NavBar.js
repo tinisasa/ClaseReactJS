@@ -28,9 +28,9 @@ const NavBar = ({ appName }) => {
                         Home
                     </NavLink>
                 </li>
-                {categories.map(({ name, id }) =>
-                    <li key={id} className="nav-item">
-                        <NavLink exact activeClassName="active" className="nav-link" to={`/categories/${id}`}>
+                {categories.map(({ name, key, id }) =>
+                    <li key={key} className="nav-item">
+                        <NavLink exact activeClassName="active" className="nav-link" to={{ pathname: `/categories/${key}`, state: { categoryId: id } }}>
                             {name}
                         </NavLink>
                     </li>

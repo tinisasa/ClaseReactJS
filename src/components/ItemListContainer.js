@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 import { getList } from '../firebase/clientFactory';
 import ItemList from './ItemList';
 
@@ -8,10 +8,13 @@ const ItemListContainer = ({ greeting }) => {
     const [isEmpty, setIsEmpty] = useState(false);
     const [isLoading, setisLoading] = useState(true);
     const { id } = useParams();
+    let location = useLocation();
+
     useEffect(() => {
+        let categoryId = location.state ? location.state.categoryId : null;
         async function getItems() {
             setisLoading(true);
-            await getList('items', id ? id : null).then((response) => {
+            await getList('items', categoryId ? categoryId : null).then((response) => {
                 !response.length ? setIsEmpty(true) : setItems(response);
             }).catch((error) => {
                 console.log('error getting items', error);
@@ -22,10 +25,11 @@ const ItemListContainer = ({ greeting }) => {
         }
         getItems();
         return () => {
-            console.log('saliendo de category id' + id);
+            console.log('saliendo de category categoryId' + categoryId);
             setItems([]);
             setIsEmpty(false)
         }
+        // eslint-disable-next-line
     }, [id]);
 
     return (

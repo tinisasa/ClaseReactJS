@@ -39,7 +39,8 @@ const CartComponent = () => {
                 email: "usuario@test.com",
             },
             items: newItems,
-            total: totalAmount
+            total: totalAmount,
+            status: 'Generada'
         };
 
         addOrder(newOrder, items)
