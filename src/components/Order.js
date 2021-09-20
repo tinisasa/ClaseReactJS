@@ -11,10 +11,11 @@ const Order = () => {
     useEffect(() => {
         async function getOrderById() {
             setisLoading(true);
-            await getById('items', id).then((response) => {
+            await getById('orders', id).then((response) => {
+                console.log(response)
+                setOrder(response);
                 setisLoading(false);
                 setOrderDoesntExists(false);
-                setOrder(response);
             }).catch((error) => {
                 error === 'notFound' ? setOrderDoesntExists(true) : console.log('error searching orders', error);
             }).finally(() => {
