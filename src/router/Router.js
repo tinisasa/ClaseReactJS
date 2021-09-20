@@ -6,6 +6,7 @@ import NavBar from "../components/NavBar";
 import CartComponent from "../components/CartComponent";
 import NotFound from "../components/NotFound";
 import Order from "../components/Order";
+import CheckoutContainer from "../components/CheckoutContainer";
 
 const Router = ({ appName }) => {
     return (
@@ -17,6 +18,7 @@ const Router = ({ appName }) => {
                 <Route path="/products/:id" component={ItemDetailContainer} />
                 <Route path="/orders/:id" component={Order} />
                 <Route path="/cart" component={CartComponent} />
+                <Route path="/checkout" component={CheckoutContainer} />
                 <Route path="*" component={NotFound} />
             </Switch>
         </BrowserRouter>
