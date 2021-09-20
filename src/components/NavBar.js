@@ -1,26 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { getFirestore } from '../firebase/clientFactory';
+import { getList } from '../firebase/clientFactory';
 import CartWidget from './CartWidget';
 
 const NavBar = ({ appName }) => {
     const [categories, setCategories] = useState([]);
     useEffect(() => {
         async function getCategories() {
-            const db = getFirestore();
-            const itemCollection = db.collection("categories").orderBy("name", "asc");
-            await itemCollection.get().then((querySnapshot) => {
-                if (querySnapshot.size === 0) {
-                    console.log('No results!');
-                }
-                setCategories(querySnapshot.docs.map(doc => {
-                    const obj = { id: doc.id, ...doc.data() }
-                    return obj;
-                }))
+            await getList('categories').then((response) => {
+                setCategories(response);
             }).catch((error) => {
-                console.log('error searching items', error);
+                console.log('error getting Categories', error);
             }).finally(() => {
-                console.log('finalizado correctamente');
+                console.log('Categories loaded correctly');
             })
         }
         getCategories();

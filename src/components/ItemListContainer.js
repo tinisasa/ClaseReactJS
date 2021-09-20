@@ -16,7 +16,8 @@ const ItemListContainer = ({ greeting }) => {
             }).catch((error) => {
                 console.log('error getting items', error);
             }).finally(() => {
-                setisLoading(false)
+                setisLoading(false);
+                console.log('Items loaded correctly');
             })
         }
         getItems();
