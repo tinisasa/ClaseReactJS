@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getFirestore } from '../firebase/clientFactory';
+import { getList } from '../firebase/clientFactory';
 import ItemList from './ItemList';
 
 const ItemListContainer = ({ greeting }) => {
@@ -11,21 +11,10 @@ const ItemListContainer = ({ greeting }) => {
     useEffect(() => {
         async function getItems() {
             setisLoading(true);
-            const db = getFirestore();
-            const itemCollection = db.collection("items");
-            const filterByCategoryId = itemCollection.where('categoryId', '==', id ? id : '');
-            const query = id ? filterByCategoryId : itemCollection;
-            await query.limit(20).get().then((querySnapshot) => {
-                if (querySnapshot.size === 0) {
-                    console.log('No results!');
-                    setIsEmpty(true);
-                }
-                setItems(querySnapshot.docs.map(doc => {
-                    const obj = { id: doc.id, ...doc.data() }
-                    return obj;
-                }))
+            await getList('items', id ? id : null).then((response) => {
+                !response.length ? setIsEmpty(true) : setItems(response);
             }).catch((error) => {
-                console.log('error searching items', error);
+                console.log('error getting items', error);
             }).finally(() => {
                 setisLoading(false)
             })
