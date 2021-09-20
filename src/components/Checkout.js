@@ -25,6 +25,7 @@ const Checkout = ({ items, handleFinishPurchase, total }) => {
                 break;
             case "email":
                 e.target.value !== buyer.emailValidation && buyer.emailValidation ? setInvalidEmail(true) : setInvalidEmail(false);
+            // eslint-disable-next-line
             default:
                 if (!e.target.validity.valid) {
                     const newValue = { [e.target.name]: true }
@@ -111,7 +112,7 @@ const Checkout = ({ items, handleFinishPurchase, total }) => {
                             <small id="emailHelp" className="form-text text-danger">&nbsp;{invalidEmail && 'Los emails no coinciden'}</small>
                         </div>
                         <button type="button" className="btn btn-primary" onClick={submitForm}>Finalizar compra</button>
-                        {invalidForm && <small id="phoneHelp" className="form-text text-muted">{invalidForm.text}</small>}
+                        {invalidForm && <small id="phoneHelp" className="form-text text-danger">{invalidForm.text}</small>}
                     </form>
                 </div>
             </div>

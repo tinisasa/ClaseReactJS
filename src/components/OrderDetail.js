@@ -12,9 +12,7 @@ const OrderDetail = ({ order, orderDoesntExists }) => {
                 <>
                     <div className="card-body">
                         <h2 className="card-title">Detalle de orden</h2>
-                        <p className="card-text">Nombre: {order.buyer.name}</p>
-                        <p className="card-text">Email: {order.buyer.email}</p>
-                        <p className="card-text">Teléfono: {order.buyer.phone}</p>
+                        <p className="card-text">Fecha: {order.date.toDate().toLocaleDateString()}</p>
                         <p className="card-text">Estado: {order.status}</p>
                         <p className="card-text">Id: {order.id}</p>
                         <hr />

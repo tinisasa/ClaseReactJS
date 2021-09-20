@@ -39,7 +39,8 @@ const CheckoutContainer = () => {
             },
             items: newItems,
             total: totalAmount,
-            status: 'Generada'
+            status: 'Generada',
+            date: new Date()
         };
 
         addOrder(newOrder, items)
