@@ -5,7 +5,7 @@ import ItemListContainer from "../components/ItemListContainer";
 import NavBar from "../components/NavBar";
 import CartComponent from "../components/CartComponent";
 import NotFound from "../components/NotFound";
-import Order from "../components/Order";
+import OrderContainer from "../components/OrderContainer";
 import CheckoutContainer from "../components/CheckoutContainer";
 
 const Router = ({ appName }) => {
@@ -16,7 +16,7 @@ const Router = ({ appName }) => {
                 <Route exact path="/" component={ItemListContainer} />
                 <Route path="/categories/:id" component={ItemListContainer} />
                 <Route path="/products/:id" component={ItemDetailContainer} />
-                <Route path="/orders/:id" component={Order} />
+                <Route path="/orders/:id" component={OrderContainer} />
                 <Route path="/cart" component={CartComponent} />
                 <Route path="/checkout" component={CheckoutContainer} />
                 <Route path="*" component={NotFound} />

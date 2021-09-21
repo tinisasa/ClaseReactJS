@@ -3,7 +3,7 @@ import { useParams } from 'react-router';
 import { getById } from '../firebase/clientFactory';
 import OrderDetail from './OrderDetail';
 
-const Order = () => {
+const OrderContainer = () => {
     const [order, setOrder] = useState({});
     const [orderDoesntExists, setOrderDoesntExists] = useState(false);
     const [isLoading, setisLoading] = useState(true);
@@ -38,4 +38,4 @@ const Order = () => {
         </div>)
 }
 
-export default Order
+export default OrderContainer
