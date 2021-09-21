@@ -1,26 +1,10 @@
-import React, { useContext, useEffect, useState } from 'react';
-import CartContext from '../context/CartContext';
+import React, { useState } from 'react';
 import ConfirmPurchase from './ConfirmPurchase';
 import ItemCount from './ItemCount';
 
-const ItemDetail = ({ item, itemDoesntExists }) => {
-    const [stock, setStock] = useState(1);
-    const [initial, setInitial] = useState(1);
+const ItemDetail = ({ item, initial, stock, itemDoesntExists, addItemToCart, itemIsInCart }) => {
     const [added, setAdded] = useState(false);
-    const { addItem } = useContext(CartContext);
-    const Cta = added ? ConfirmPurchase : ItemCount;
-
-    useEffect(() => {
-        setStock(item.stock);
-        setInitial(item.initial);
-    }, [item]);
-
-    const addItemToCart = (quantity) => {
-        if (quantity <= stock) {
-            setStock(stock - quantity);
-            addItem(item, quantity);
-        }
-    }
+    const Cta = added || itemIsInCart ? ConfirmPurchase : ItemCount;
 
     const onAdd = (quantity) => {
         addItemToCart(quantity);

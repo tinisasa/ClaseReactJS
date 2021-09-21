@@ -8,12 +8,17 @@ function CartProvider({ defaultValue = [], children }) {
         let totalOfItems = 0;
         if (items.length > 0) {
             items.map(obj => {
-                return setTotalItems(totalOfItems + obj.quantity);
+                return totalOfItems += obj.quantity;
             })
+            console.log('totalOfItems ' + totalOfItems);
+            console.log(items);
+            console.log('totalITems saved ' + totalItems);
+            return setTotalItems(totalOfItems);
         }
         else {
             setTotalItems(0);
         }
+        // eslint-disable-next-line
     }, [items])
 
     const getItemById = (id) => {
@@ -38,8 +43,10 @@ function CartProvider({ defaultValue = [], children }) {
     }
 
     const editItem = (id, qty) => {
+        console.log(qty);
         const updatedItems = [...items];
         let objToUpdate = updatedItems.find(obj => obj.item.id === id);
+        console.log(objToUpdate.quantity);
         objToUpdate.quantity = qty;
         setItems(updatedItems);
     }
@@ -51,8 +58,21 @@ function CartProvider({ defaultValue = [], children }) {
 
     const clearItems = () => setItems([]);
 
+    const checkForItem = (id) => {
+        return new Promise((resolve, reject) => {
+            if (isInCart(id)) {
+                let objToSend = items.find(obj => obj.item.id === id);
+                resolve(objToSend);
+            }
+            else {
+                reject('item not in cart');
+            }
+        })
+    }
+
+
     return (
-        <CartContext.Provider value={{ items, addItem, removeItem, editItem, isInCart, clearItems, cartSize: items.length, totalItems: totalItems }}>
+        <CartContext.Provider value={{ items, addItem, removeItem, editItem, isInCart, clearItems, checkForItem, cartSize: items.length, totalItems: totalItems }}>
             {children}
         </CartContext.Provider>
     )
