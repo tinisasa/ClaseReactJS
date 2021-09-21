@@ -43,7 +43,7 @@ const NavBar = ({ appName }) => {
             </ul>
             <form className="form-inline my-2 my-lg-0 mr-4" >
                 <input className="form-control mr-sm-2" value={orderId} onChange={handleChange} type="search" placeholder="Id de orden" aria-label="Search" />
-                <Link class="btn btn-outline-primary my-2 my-sm-0" to={`/orders/${orderId}`}>Buscar orden</Link>
+                <Link className="btn btn-outline-primary my-2 my-sm-0" to={`/orders/${orderId}`}>Buscar orden</Link>
             </form>
             <CartWidget />
         </nav>)
