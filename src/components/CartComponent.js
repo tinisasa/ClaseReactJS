@@ -6,8 +6,6 @@ import ItemCount from './ItemCount';
 const CartComponent = () => {
     const [totalAmount, setTotalAmount] = useState(0);
     const { items, removeItem, clearItems, editItem } = useContext(CartContext);
-    const [createdOrderId, setCreatedOrderId] = useState(null);
-
     useEffect(() => {
         let total = 0;
         if (items.length > 0) {

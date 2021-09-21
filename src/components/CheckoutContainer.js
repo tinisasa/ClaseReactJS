@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
+import { useHistory } from 'react-router';
 import CartContext from '../context/CartContext';
 import { addOrder } from '../firebase/clientFactory';
 import Checkout from './Checkout';
@@ -6,7 +7,7 @@ import Checkout from './Checkout';
 const CheckoutContainer = () => {
     const [totalAmount, setTotalAmount] = useState(0);
     const { items, clearItems } = useContext(CartContext);
-    const [createdOrderId, setCreatedOrderId] = useState(null);
+    let history = useHistory();
 
     useEffect(() => {
         let total = 0;
@@ -47,7 +48,7 @@ const CheckoutContainer = () => {
             .then((response) => {
                 console.log("response:", response);
                 clearItems();
-                setCreatedOrderId(response);
+                history.push('/orders/' + response);
             })
             .catch((error) => console.log(error));
 
