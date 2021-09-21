@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import CartContext from '../context/CartContext';
-import { getById } from '../firebase/clientFactory';
+import { getById } from '../firebase/ClientFactory';
 import ItemDetail from './ItemDetail';
 
 const ItemDetailContainer = ({ greeting }) => {

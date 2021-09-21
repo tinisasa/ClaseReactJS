@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useHistory } from 'react-router';
 import CartContext from '../context/CartContext';
-import { addOrder } from '../firebase/clientFactory';
+import { addOrder } from '../firebase/ClientFactory';
 import Checkout from './Checkout';
 
 const CheckoutContainer = () => {

@@ -72,7 +72,7 @@ function CartProvider({ defaultValue = [], children }) {
 
 
     return (
-        <CartContext.Provider value={{ items, addItem, removeItem, editItem, isInCart, clearItems, checkForItem, cartSize: items.length, totalItems: totalItems }}>
+        <CartContext.Provider value={{ items, addItem, removeItem, editItem, isInCart, clearItems, checkForItem, totalItems: totalItems }}>
             {children}
         </CartContext.Provider>
     )

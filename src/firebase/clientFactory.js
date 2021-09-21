@@ -27,7 +27,7 @@ export function getList(collection, id) {
     }
 
     return new Promise((resolve, reject) => {
-        query.limit(20).get().then((querySnapshot) => {
+        query.get().then((querySnapshot) => {
             if (querySnapshot.size === 0) {
                 console.log('No results!');
                 return resolve([]);

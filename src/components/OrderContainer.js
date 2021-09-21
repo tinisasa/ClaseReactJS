@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router';
-import { getById } from '../firebase/clientFactory';
+import { getById } from '../firebase/ClientFactory';
 import OrderDetail from './OrderDetail';
 
 const OrderContainer = () => {

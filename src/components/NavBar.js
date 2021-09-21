@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import { getList } from '../firebase/clientFactory';
+import { getList } from '../firebase/ClientFactory';
 import CartWidget from './CartWidget';
 
 const NavBar = ({ appName }) => {

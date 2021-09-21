@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
-import { getList } from '../firebase/clientFactory';
+import { getList } from '../firebase/ClientFactory';
 import ItemList from './ItemList';
 
 const ItemListContainer = ({ greeting }) => {
