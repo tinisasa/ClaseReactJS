@@ -56,7 +56,7 @@ const CheckoutContainer = () => {
     return (
         <div className="container">
             <h1 className="display-3">Último paso</h1>
-            {items && <Checkout items={items} handleFinishPurchase={handleFinishPurchase} total={totalAmount} />}
+            {items.length > 0 && <Checkout items={items} handleFinishPurchase={handleFinishPurchase} total={totalAmount} />}
         </div>)
 }
 
