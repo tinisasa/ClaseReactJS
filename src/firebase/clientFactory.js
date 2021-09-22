@@ -1,7 +1,17 @@
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
-import firebaseConfig from '../K';
+
+const firebaseConfig = {
+    apiKey: process.env.REACT_APP_API_KEY,
+    authDomain: "crystals-uy.firebaseapp.com",
+    projectId: "crystals-uy",
+    storageBucket: "crystals-uy.appspot.com",
+    messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
+    appId: process.env.REACT_APP_APP_ID
+};
+
+export default firebaseConfig;
 
 const app = firebase.initializeApp(firebaseConfig);
 

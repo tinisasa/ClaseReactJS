@@ -2,28 +2,15 @@
 
 Creado utilizando [create-react-app](https://github.com/facebook/create-react-app) y [react-router](https://github.com/remix-run/react-router)
 
-No se usaron otras dependencias. Para los estilos se usa [bootstrap 4.6](https://getbootstrap.com/docs/4.6/getting-started/introduction/) mediante CDN.
+Para los estilos se usa [bootstrap 4.6](https://getbootstrap.com/docs/4.6/getting-started/introduction/) mediante CDN.
+
+La única dependencia agregada es [dotenv](https://www.npmjs.com/package/dotenv) para variables de ambiente.
 
 A lo largo de la app se hace el uso de componentes funcionales, y hooks como `useEffect`, `useState` y `useContext`
 
 ## Instrucciones
 
-Para acceder a las constantes agregar el archivo `K.js` dentro de la carpeta `src` con el siguiente código
-
-```
-const firebaseConfig = {
-    apiKey: "AIzaSyC3uxV7PN-zsjAEmdwvZCnjVylMrSJ8ftE",
-    authDomain: "crystals-uy.firebaseapp.com",
-    projectId: "crystals-uy",
-    storageBucket: "crystals-uy.appspot.com",
-    messagingSenderId: "48196633137",
-    appId: "1:48196633137:web:3bd0bc5aa275227afe4b10"
-};
-
-export default firebaseConfig;
-```
-
-`npm run build` compila la versión de producción y la ejecuta en `localhost:3000`
+`npm run build` compila la versión de producción.
 
 `npm start` compila la versión de desarrollo y la ejecuta en `localhost:3000` con un listener para los cambios.
 
