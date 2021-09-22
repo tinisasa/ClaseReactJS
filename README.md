@@ -10,8 +10,6 @@ A lo largo de la app se hace el uso de componentes funcionales, y hooks como `us
 
 ## Instrucciones
 
-`npm run build` compila la versión de producción.
-
 `npm start` compila la versión de desarrollo y la ejecuta en `localhost:3000` con un listener para los cambios.
 
 # Archivos en consideración
